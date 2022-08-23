@@ -17,7 +17,13 @@ class _HomeState extends State<Home> {
     prefs.setString('nome', _controller.text);
   }
 
-  _carregar() {}
+  _carregar() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      _text = prefs.getString('nome')!;
+    });
+  }
 
   _remover() {}
 
