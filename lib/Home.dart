@@ -13,25 +13,27 @@ class _HomeState extends State<Home> {
   String _text = '';
 
   _salvar() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('nome', _controller.text);
   }
 
   _carregar() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _text = prefs.getString('nome')!;
+      _text = prefs.getString('nome') ?? 'nada salvo';
     });
   }
 
-  _remover() {}
+  _remover() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('nome');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Preferências de usuário'),
+        title: const Text('Preferências de usuário'),
       ),
       body: Center(
         child: Column(
@@ -47,9 +49,9 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(onPressed: _salvar, child: Text('Salvar')),
-                ElevatedButton(onPressed: _carregar, child: Text('Carregar')),
-                ElevatedButton(onPressed: _remover, child: Text('Remover')),
+                ElevatedButton(onPressed: _salvar, child: const Text('Salvar')),
+                ElevatedButton(onPressed: _carregar, child: const Text('Carregar')),
+                ElevatedButton(onPressed: _remover, child: const Text('Remover')),
               ],
             )
           ],
