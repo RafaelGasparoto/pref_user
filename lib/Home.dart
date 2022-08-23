@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,8 +12,9 @@ class _HomeState extends State<Home> {
   final TextEditingController _controller = TextEditingController();
   String _text = '';
 
-  _salvar() {
-
+  _salvar() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('nome', _controller.text);
   }
 
   _carregar() {}
